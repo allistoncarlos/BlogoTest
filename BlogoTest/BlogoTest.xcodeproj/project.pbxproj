@@ -14,6 +14,8 @@
 		A51B6D4E1BDE9072007D191A /* BlogoTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A51B6D4C1BDE9072007D191A /* BlogoTest.xcdatamodeld */; };
 		A51B6D501BDE9072007D191A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51B6D4F1BDE9072007D191A /* Assets.xcassets */; };
 		A51B6D531BDE9072007D191A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A51B6D511BDE9072007D191A /* LaunchScreen.storyboard */; };
+		A51B6D5B1BDED373007D191A /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51B6D5A1BDED373007D191A /* Accounts.framework */; };
+		A51B6D5D1BDED37B007D191A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51B6D5C1BDED37B007D191A /* Social.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		A51B6D4F1BDE9072007D191A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A51B6D521BDE9072007D191A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A51B6D541BDE9072007D191A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A51B6D5A1BDED373007D191A /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		A51B6D5C1BDED37B007D191A /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A51B6D5D1BDED37B007D191A /* Social.framework in Frameworks */,
+				A51B6D5B1BDED373007D191A /* Accounts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +50,7 @@
 		A51B6D341BDE9072007D191A = {
 			isa = PBXGroup;
 			children = (
+				A51B6D5E1BDED3BD007D191A /* Frameworks */,
 				A51B6D3F1BDE9072007D191A /* BlogoTest */,
 				A51B6D3E1BDE9072007D191A /* Products */,
 			);
@@ -80,6 +87,15 @@
 				A51B6D411BDE9072007D191A /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A51B6D5E1BDED3BD007D191A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A51B6D5C1BDED37B007D191A /* Social.framework */,
+				A51B6D5A1BDED373007D191A /* Accounts.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
