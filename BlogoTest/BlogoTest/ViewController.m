@@ -8,7 +8,8 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()<UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *recentSearchesLabel;
 
 @end
 
@@ -22,6 +23,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self performSegueWithIdentifier:@"ShowResults" sender:self];
+    [textField resignFirstResponder];
+    
+    return YES;
 }
 
 @end
