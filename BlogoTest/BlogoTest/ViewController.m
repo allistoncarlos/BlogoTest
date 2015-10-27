@@ -11,28 +11,40 @@
 #import "Operation.m"
 #import "HomeCell.h"
 
+#import "NSMutableArray+Queue.h"
+
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
 @interface ViewController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
+#pragma mark -
+#pragma mark Outlets
+#pragma mark -
 @property (weak, nonatomic) IBOutlet UILabel *recentSearchesLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UITableView *trendingsTable;
 
+#pragma mark -
+#pragma mark Properties
+#pragma mark -
 @property (nonatomic,strong) ACAccountStore *accountStore;
 @property (nonatomic,strong) NSURLConnection *connection;
 @property (nonatomic,strong) NSMutableData *data;
 @property (nonatomic,strong) NSMutableArray *jsonResult;
 @property (nonatomic,strong) NSMutableArray *trendingResult;
-
 @property (nonatomic,strong) NSString *searchParameter;
+@property (nonatomic,strong) NSUserDefaults *userDefaults;
 @property (nonatomic,assign) Operation operation;
-
-@property (weak, nonatomic) IBOutlet UITableView *trendingsTable;
 
 @end
 
 @implementation ViewController
+#pragma mark -
+#pragma mark Constants
+#pragma mark -
+NSString *const recentSearchesKey = @"recentSearches";
+
 #pragma mark -
 #pragma mark Account Store
 #pragma mark -
@@ -53,7 +65,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self getTrendingTopics];
+    self.userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray* recentSearches = [self.userDefaults objectForKey:recentSearchesKey];
+    
+    if (recentSearches == nil) {
+        recentSearches = [[NSMutableArray alloc] init];
+        [self.userDefaults setObject:recentSearches forKey:recentSearchesKey];
+    }
+    
+    //[self getTrendingTopics];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,6 +90,17 @@
 #pragma mark -
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString: @"ShowResults"]) {
+        NSArray *recentSearchesInmutable = [self.userDefaults objectForKey:recentSearchesKey];
+        NSMutableArray *recentSearches = [[NSMutableArray alloc] initWithArray:recentSearchesInmutable];
+        
+        if ([recentSearches count] == 5) {
+            [recentSearches dequeue];
+        }
+        
+        [recentSearches enqueue:self.searchParameter];
+        
+        [self.userDefaults setObject:recentSearches forKey:recentSearchesKey];
+        
         ResultsViewController* resultVC = segue.destinationViewController;
         resultVC.result = self.jsonResult;
         resultVC.searchParameter = self.searchParameter;
