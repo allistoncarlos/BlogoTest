@@ -18,6 +18,8 @@
 		A51B6D5D1BDED37B007D191A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51B6D5C1BDED37B007D191A /* Social.framework */; };
 		A56465871BDF881800B8F763 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56465861BDF881800B8F763 /* ResultsViewController.m */; };
 		A564658C1BDF8D0800B8F763 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A564658B1BDF8D0800B8F763 /* TweetCell.m */; };
+		A5EFED551BE0164C00F8F676 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED541BE0164C00F8F676 /* Operation.m */; };
+		A5EFED571BE0264000F8F676 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED561BE0264000F8F676 /* HomeCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,9 @@
 		A56465881BDF882B00B8F763 /* ResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
 		A564658A1BDF8CE100B8F763 /* TweetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
 		A564658B1BDF8D0800B8F763 /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
+		A5EFED541BE0164C00F8F676 /* Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Operation.m; sourceTree = "<group>"; };
+		A5EFED561BE0264000F8F676 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
+		A5EFED581BE0265D00F8F676 /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +78,7 @@
 		A51B6D3F1BDE9072007D191A /* BlogoTest */ = {
 			isa = PBXGroup;
 			children = (
+				A5EFED531BE0163800F8F676 /* Helpers */,
 				A56465891BDF8CCD00B8F763 /* Cells */,
 				A51B6D431BDE9072007D191A /* AppDelegate.h */,
 				A51B6D441BDE9072007D191A /* AppDelegate.m */,
@@ -112,8 +118,18 @@
 			children = (
 				A564658A1BDF8CE100B8F763 /* TweetCell.h */,
 				A564658B1BDF8D0800B8F763 /* TweetCell.m */,
+				A5EFED581BE0265D00F8F676 /* HomeCell.h */,
+				A5EFED561BE0264000F8F676 /* HomeCell.m */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		A5EFED531BE0163800F8F676 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A5EFED541BE0164C00F8F676 /* Operation.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,6 +207,8 @@
 				A51B6D451BDE9072007D191A /* AppDelegate.m in Sources */,
 				A564658C1BDF8D0800B8F763 /* TweetCell.m in Sources */,
 				A51B6D421BDE9072007D191A /* main.m in Sources */,
+				A5EFED551BE0164C00F8F676 /* Operation.m in Sources */,
+				A5EFED571BE0264000F8F676 /* HomeCell.m in Sources */,
 				A56465871BDF881800B8F763 /* ResultsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

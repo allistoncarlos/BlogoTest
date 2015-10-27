@@ -39,7 +39,7 @@
 }
 
 #pragma mark -
-#pragma mark UITableViewDataSource Methods
+#pragma mark UITableViewDelegate Methods
 #pragma mark -
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

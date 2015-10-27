@@ -8,10 +8,13 @@
 
 #import "ViewController.h"
 #import "ResultsViewController.h"
+#import "Operation.m"
+#import "HomeCell.h"
+
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
-@interface ViewController ()<UITextFieldDelegate>
+@interface ViewController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UILabel *recentSearchesLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -20,8 +23,12 @@
 @property (nonatomic,strong) NSURLConnection *connection;
 @property (nonatomic,strong) NSMutableData *data;
 @property (nonatomic,strong) NSMutableArray *jsonResult;
+@property (nonatomic,strong) NSMutableArray *trendingResult;
 
 @property (nonatomic,strong) NSString *searchParameter;
+@property (nonatomic,assign) Operation operation;
+
+@property (weak, nonatomic) IBOutlet UITableView *trendingsTable;
 
 @end
 
@@ -45,6 +52,8 @@
 #pragma mark -
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self getTrendingTopics];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,6 +93,7 @@
 #pragma mark -
 - (void)doSearch {
     [self.activityIndicator startAnimating];
+    self.operation = TimelineLoad;
     
     NSString *encodedQuery = [self.searchParameter stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -92,17 +102,46 @@
      {
          if (allowed)
          {
-             NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1.1/search/tweets.json"];
+             NSURL *timelineUrl = [NSURL URLWithString:@"https://api.twitter.com/1.1/search/tweets.json"];
              NSDictionary *parameters = @{@"count" : @10, @"q" : encodedQuery};
              
              SLRequest *slRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
                                                        requestMethod:SLRequestMethodGET
-                                                                 URL:url
+                                                                 URL:timelineUrl
                                                           parameters:parameters];
              
              NSArray *accounts = [self.accountStore accountsWithAccountType:accountType];
              slRequest.account = [accounts lastObject];
              NSURLRequest *request = [slRequest preparedURLRequest];
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+                 [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+             });
+         }
+     }];
+}
+
+- (void)getTrendingTopics {
+    [self.activityIndicator startAnimating];
+    self.operation = TrendingLoad;
+    
+    ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    [self.accountStore requestAccessToAccountsWithType:accountType options:NULL completion:^(BOOL allowed, NSError *error)
+     {
+         if (allowed) {
+             // Worldwide trending topics
+             NSURL *timelineUrl = [NSURL URLWithString:@"https://api.twitter.com/1.1/trends/place.json?id=1"];
+             
+             SLRequest *slRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                       requestMethod:SLRequestMethodGET
+                                                                 URL:timelineUrl
+                                                          parameters:nil];
+             
+             NSArray *accounts = [self.accountStore accountsWithAccountType:accountType];
+             slRequest.account = [accounts lastObject];
+             NSURLRequest *request = [slRequest preparedURLRequest];
+             
              dispatch_async(dispatch_get_main_queue(), ^{
                  self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
                  [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -123,6 +162,74 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    switch (self.operation)
+    {
+        case TrendingLoad:
+            [self trendingTopicsLoaded];
+            break;
+        case TimelineLoad:
+            [self timelineLoaded];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    [self.activityIndicator stopAnimating];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    self.connection = nil;
+    self.data = nil;
+}
+
+#pragma mark -
+#pragma mark UITableViewDelegate methods
+#pragma mark -
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *HomeCellIdentifier = @"HomeCell";
+    
+    HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeCellIdentifier];
+    
+    if (self.operation == TrendingLoad) {
+        NSDictionary *trendingItem = (self.trendingResult)[indexPath.row];
+        cell.label.text = trendingItem[@"name"];
+    } else {
+        
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row & 1)
+    {
+        cell.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    }
+    else
+    {
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+}
+
+
+#pragma mark -
+#pragma mark Private Methods
+#pragma mark -
+- (void) timelineLoaded {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     self.connection = nil;
     
@@ -136,7 +243,7 @@
     if ([self.jsonResult count] != 0)
     {
         self.data = nil;
-
+        
         [self performSegueWithIdentifier:@"ShowResults" sender:self];
     }
     else {
@@ -150,12 +257,18 @@
     }
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    [self.activityIndicator stopAnimating];
-    
+- (void) trendingTopicsLoaded {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     self.connection = nil;
-    self.data = nil;
+    
+    NSError *jsonParsingError = nil;
+    NSArray *jsonResults = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&jsonParsingError];
+    NSDictionary* trendingResult = [jsonResults objectAtIndex:0];
+    
+    
+    self.trendingResult = trendingResult[@"trends"];
+    [self.trendingsTable reloadData];
+    
+    [self.activityIndicator stopAnimating];
 }
 @end
