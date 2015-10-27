@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "ResultsViewController.h"
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
@@ -49,6 +50,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -
+#pragma mark Segue Preparation
+#pragma mark -
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString: @"ShowResults"]) {
+        ResultsViewController* resultVC = segue.destinationViewController;
+        resultVC.result = self.jsonResult;
+    }
+}
 
 #pragma mark -
 #pragma mark UITextFieldDelegate Methods
