@@ -16,12 +16,21 @@
 @implementation ResultsViewController
 
 @synthesize result;
+@synthesize searchParameter;
 
 #pragma mark -
 #pragma mark View methods
 #pragma mark -
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBarHidden = NO;
+    [self setTitle:searchParameter];
+    
+    UIColor* bg = [UIColor colorWithRed:94.0/255.0 green:159.0/255.0 blue:202.0/255.0 alpha:1];
+    [self.navigationController.navigationBar setBarTintColor:bg];
+    [self.navigationController.navigationBar setTranslucent:YES];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,8 +54,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *TweetCellIdentifier = @"TweetCell";
-    
-    NSUInteger count = [self.result count];
     
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:TweetCellIdentifier];
     NSDictionary *tweet = (self.result)[indexPath.row];

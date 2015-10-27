@@ -21,6 +21,8 @@
 @property (nonatomic,strong) NSMutableData *data;
 @property (nonatomic,strong) NSMutableArray *jsonResult;
 
+@property (nonatomic,strong) NSString *searchParameter;
+
 @end
 
 @implementation ViewController
@@ -45,6 +47,10 @@
     [super viewDidLoad];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = YES;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -57,6 +63,7 @@
     if ([segue.identifier isEqualToString: @"ShowResults"]) {
         ResultsViewController* resultVC = segue.destinationViewController;
         resultVC.result = self.jsonResult;
+        resultVC.searchParameter = self.searchParameter;
     }
 }
 
@@ -66,7 +73,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     
-    [self doSearch:textField.text];
+    self.searchParameter = textField.text;
+    [self doSearch];
     
     return YES;
 }
@@ -74,10 +82,10 @@
 #pragma mark -
 #pragma mark Twitter Search
 #pragma mark -
-- (void)doSearch: (NSString* ) searchParameter {
+- (void)doSearch {
     [self.activityIndicator startAnimating];
     
-    NSString *encodedQuery = [searchParameter stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *encodedQuery = [self.searchParameter stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     [self.accountStore requestAccessToAccountsWithType:accountType options:NULL completion:^(BOOL allowed, NSError *error)
@@ -132,8 +140,11 @@
         [self performSegueWithIdentifier:@"ShowResults" sender:self];
     }
     else {
-        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Atenção" message:@"Erro na autenticação com o Twitter" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        alertView.message = @"Erro na autenticação com o Twitter";
+        NSArray* errorsArray = jsonResults[@"errors"];
+        NSDictionary* errorMessage = [errorsArray objectAtIndex:0];
+        NSString* message = errorMessage[@"message"];
+        
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Atenção" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [alertView show];
     }

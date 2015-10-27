@@ -11,5 +11,6 @@
 @interface ResultsViewController : UITableViewController
 
 @property (nonatomic, retain) NSMutableArray *result;
+@property (nonatomic, retain) NSString *searchParameter;
 
 @end

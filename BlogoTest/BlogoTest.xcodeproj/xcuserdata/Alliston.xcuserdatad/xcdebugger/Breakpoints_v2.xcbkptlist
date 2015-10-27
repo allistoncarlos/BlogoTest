@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlogoTest/ViewController.m"
-            timestampString = "467634832.382042"
+            timestampString = "467637728.451682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "-connection:didFailWithError:"
             landmarkType = "5">
          </BreakpointContent>
