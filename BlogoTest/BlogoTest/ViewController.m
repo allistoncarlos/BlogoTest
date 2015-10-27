@@ -105,8 +105,6 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    [self.activityIndicator stopAnimating];
-    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     self.connection = nil;
     
@@ -115,11 +113,19 @@
     
     self.jsonResult = jsonResults[@"statuses"];
     
+    [self.activityIndicator stopAnimating];
+    
     if ([self.jsonResult count] != 0)
     {
         self.data = nil;
 
         [self performSegueWithIdentifier:@"ShowResults" sender:self];
+    }
+    else {
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Atenção" message:@"Erro na autenticação com o Twitter" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alertView.message = @"Erro na autenticação com o Twitter";
+        
+        [alertView show];
     }
 }
 
