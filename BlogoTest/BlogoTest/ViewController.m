@@ -12,11 +12,15 @@
 #import "HomeCell.h"
 
 #import "NSMutableArray+Queue.h"
+#import "Constants.m"
+
+#import "TrendingDelegate.h"
+#import "RecentSearchDelegate.h"
 
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
-@interface ViewController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ViewController ()<UITextFieldDelegate>
 
 #pragma mark -
 #pragma mark Outlets
@@ -24,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *recentSearchesLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UITableView *trendingsTable;
+@property (weak, nonatomic) IBOutlet UITableView *recentSearchesTable;
 
 #pragma mark -
 #pragma mark Properties
@@ -35,16 +40,15 @@
 @property (nonatomic,strong) NSMutableArray *trendingResult;
 @property (nonatomic,strong) NSString *searchParameter;
 @property (nonatomic,strong) NSUserDefaults *userDefaults;
+
+@property (nonatomic,strong) RecentSearchDelegate *recentSearchDelegate;
+@property (nonatomic,strong) TrendingDelegate *trendingDelegate;
+
 @property (nonatomic,assign) Operation operation;
 
 @end
 
 @implementation ViewController
-#pragma mark -
-#pragma mark Constants
-#pragma mark -
-NSString *const recentSearchesKey = @"recentSearches";
-
 #pragma mark -
 #pragma mark Account Store
 #pragma mark -
@@ -65,24 +69,26 @@ NSString *const recentSearchesKey = @"recentSearches";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.userDefaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray* recentSearches = [self.userDefaults objectForKey:recentSearchesKey];
+    self.recentSearchDelegate = [[RecentSearchDelegate alloc] init];
+    self.recentSearchesTable.delegate = self.recentSearchDelegate;
+    self.recentSearchesTable.dataSource = self.recentSearchDelegate;
     
-    if (recentSearches == nil) {
-        recentSearches = [[NSMutableArray alloc] init];
-        [self.userDefaults setObject:recentSearches forKey:recentSearchesKey];
-    }
+    self.trendingDelegate = [[TrendingDelegate alloc] init];
+    self.trendingsTable.delegate = self.trendingDelegate;
+    self.trendingsTable.dataSource = self.trendingDelegate;
     
-    //[self getTrendingTopics];
+    [self getTrendingTopics];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.userDefaults = [NSUserDefaults standardUserDefaults];
+    [self getRecentSearches];
+    
     self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark -
@@ -90,7 +96,7 @@ NSString *const recentSearchesKey = @"recentSearches";
 #pragma mark -
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString: @"ShowResults"]) {
-        NSArray *recentSearchesInmutable = [self.userDefaults objectForKey:recentSearchesKey];
+        NSArray *recentSearchesInmutable = [self.userDefaults objectForKey:RECENT_SEARCHES_KEY];
         NSMutableArray *recentSearches = [[NSMutableArray alloc] initWithArray:recentSearchesInmutable];
         
         if ([recentSearches count] == 5) {
@@ -99,7 +105,7 @@ NSString *const recentSearchesKey = @"recentSearches";
         
         [recentSearches enqueue:self.searchParameter];
         
-        [self.userDefaults setObject:recentSearches forKey:recentSearchesKey];
+        [self.userDefaults setObject:recentSearches forKey:RECENT_SEARCHES_KEY];
         
         ResultsViewController* resultVC = segue.destinationViewController;
         resultVC.result = self.jsonResult;
@@ -117,68 +123,6 @@ NSString *const recentSearchesKey = @"recentSearches";
     [self doSearch];
     
     return YES;
-}
-
-#pragma mark -
-#pragma mark Twitter Search
-#pragma mark -
-- (void)doSearch {
-    [self.activityIndicator startAnimating];
-    self.operation = TimelineLoad;
-    
-    NSString *encodedQuery = [self.searchParameter stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    [self.accountStore requestAccessToAccountsWithType:accountType options:NULL completion:^(BOOL allowed, NSError *error)
-     {
-         if (allowed)
-         {
-             NSURL *timelineUrl = [NSURL URLWithString:@"https://api.twitter.com/1.1/search/tweets.json"];
-             NSDictionary *parameters = @{@"count" : @10, @"q" : encodedQuery};
-             
-             SLRequest *slRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                       requestMethod:SLRequestMethodGET
-                                                                 URL:timelineUrl
-                                                          parameters:parameters];
-             
-             NSArray *accounts = [self.accountStore accountsWithAccountType:accountType];
-             slRequest.account = [accounts lastObject];
-             NSURLRequest *request = [slRequest preparedURLRequest];
-             
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-                 [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-             });
-         }
-     }];
-}
-
-- (void)getTrendingTopics {
-    [self.activityIndicator startAnimating];
-    self.operation = TrendingLoad;
-    
-    ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    [self.accountStore requestAccessToAccountsWithType:accountType options:NULL completion:^(BOOL allowed, NSError *error)
-     {
-         if (allowed) {
-             // Worldwide trending topics
-             NSURL *timelineUrl = [NSURL URLWithString:@"https://api.twitter.com/1.1/trends/place.json?id=1"];
-             
-             SLRequest *slRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                       requestMethod:SLRequestMethodGET
-                                                                 URL:timelineUrl
-                                                          parameters:nil];
-             
-             NSArray *accounts = [self.accountStore accountsWithAccountType:accountType];
-             slRequest.account = [accounts lastObject];
-             NSURLRequest *request = [slRequest preparedURLRequest];
-             
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-                 [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-             });
-         }
-     }];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -216,50 +160,78 @@ NSString *const recentSearchesKey = @"recentSearches";
 }
 
 #pragma mark -
-#pragma mark UITableViewDelegate methods
-#pragma mark -
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 5;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *HomeCellIdentifier = @"HomeCell";
-    
-    HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeCellIdentifier];
-    
-    if (self.operation == TrendingLoad) {
-        NSDictionary *trendingItem = (self.trendingResult)[indexPath.row];
-        cell.label.text = trendingItem[@"name"];
-    } else {
-        
-    }
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row & 1)
-    {
-        cell.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    }
-    else
-    {
-        cell.backgroundColor = [UIColor whiteColor];
-    }
-}
-
-
-#pragma mark -
 #pragma mark Private Methods
 #pragma mark -
+- (void)doSearch {
+    [self.activityIndicator startAnimating];
+    self.operation = TimelineLoad;
+    
+    NSString *encodedQuery = [self.searchParameter stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    [self.accountStore requestAccessToAccountsWithType:accountType options:NULL completion:^(BOOL allowed, NSError *error)
+     {
+         if (allowed)
+         {
+             NSURL *timelineUrl = [NSURL URLWithString:TIMELINE_URL];
+             NSDictionary *parameters = @{@"count" : @10, @"q" : encodedQuery};
+             
+             SLRequest *slRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                       requestMethod:SLRequestMethodGET
+                                                                 URL:timelineUrl
+                                                          parameters:parameters];
+             
+             NSArray *accounts = [self.accountStore accountsWithAccountType:accountType];
+             slRequest.account = [accounts lastObject];
+             NSURLRequest *request = [slRequest preparedURLRequest];
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+                 [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+             });
+         }
+     }];
+}
+
+- (void)getTrendingTopics {
+    [self.activityIndicator startAnimating];
+    self.operation = TrendingLoad;
+    
+    ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    [self.accountStore requestAccessToAccountsWithType:accountType options:NULL completion:^(BOOL allowed, NSError *error)
+     {
+         if (allowed) {
+             // Worldwide trending topics
+             NSURL *timelineUrl = [NSURL URLWithString:TRENDINGS_URL];
+             
+             SLRequest *slRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                       requestMethod:SLRequestMethodGET
+                                                                 URL:timelineUrl
+                                                          parameters:nil];
+             
+             NSArray *accounts = [self.accountStore accountsWithAccountType:accountType];
+             slRequest.account = [accounts lastObject];
+             NSURLRequest *request = [slRequest preparedURLRequest];
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+                 [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+             });
+         }
+     }];
+}
+
+- (void)getRecentSearches {
+    NSMutableArray* recentSearches = [self.userDefaults objectForKey:RECENT_SEARCHES_KEY];
+    
+    if (recentSearches == nil) {
+        recentSearches = [[NSMutableArray alloc] init];
+        [self.userDefaults setObject:recentSearches forKey:RECENT_SEARCHES_KEY];
+    }
+    
+    [self.recentSearchesTable reloadData];
+}
+
 - (void) timelineLoaded {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     self.connection = nil;
@@ -296,10 +268,14 @@ NSString *const recentSearchesKey = @"recentSearches";
     NSArray *jsonResults = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&jsonParsingError];
     NSDictionary* trendingResult = [jsonResults objectAtIndex:0];
     
+    self.trendingDelegate.tableData = trendingResult[@"trends"];
     
-    self.trendingResult = trendingResult[@"trends"];
+    self.trendingsTable.delegate = self.trendingDelegate;
+    self.trendingsTable.dataSource = self.trendingDelegate;
+    
     [self.trendingsTable reloadData];
     
     [self.activityIndicator stopAnimating];
 }
+
 @end

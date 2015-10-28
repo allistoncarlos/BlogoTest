@@ -18,6 +18,9 @@
 		A51B6D5D1BDED37B007D191A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51B6D5C1BDED37B007D191A /* Social.framework */; };
 		A56465871BDF881800B8F763 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56465861BDF881800B8F763 /* ResultsViewController.m */; };
 		A564658C1BDF8D0800B8F763 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A564658B1BDF8D0800B8F763 /* TweetCell.m */; };
+		A5CD2E121BE0D61500841AE2 /* TrendingDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CD2E111BE0D61500841AE2 /* TrendingDelegate.m */; };
+		A5CD2E141BE0D62100841AE2 /* RecentSearchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CD2E131BE0D62100841AE2 /* RecentSearchDelegate.m */; };
+		A5CD2E1A1BE0D99300841AE2 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CD2E191BE0D99300841AE2 /* Constants.m */; };
 		A5EFED551BE0164C00F8F676 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED541BE0164C00F8F676 /* Operation.m */; };
 		A5EFED571BE0264000F8F676 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED561BE0264000F8F676 /* HomeCell.m */; };
 		A5EFED5B1BE0330000F8F676 /* NSMutableArray+Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED5A1BE0330000F8F676 /* NSMutableArray+Queue.m */; };
@@ -41,6 +44,12 @@
 		A56465881BDF882B00B8F763 /* ResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
 		A564658A1BDF8CE100B8F763 /* TweetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
 		A564658B1BDF8D0800B8F763 /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
+		A5CD2E111BE0D61500841AE2 /* TrendingDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendingDelegate.m; sourceTree = "<group>"; };
+		A5CD2E131BE0D62100841AE2 /* RecentSearchDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentSearchDelegate.m; sourceTree = "<group>"; };
+		A5CD2E151BE0D62C00841AE2 /* TrendingDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrendingDelegate.h; sourceTree = "<group>"; };
+		A5CD2E161BE0D63800841AE2 /* RecentSearchDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecentSearchDelegate.h; sourceTree = "<group>"; };
+		A5CD2E181BE0D76D00841AE2 /* TableDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableDelegateProtocol.h; sourceTree = "<group>"; };
+		A5CD2E191BE0D99300841AE2 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		A5EFED541BE0164C00F8F676 /* Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Operation.m; sourceTree = "<group>"; };
 		A5EFED561BE0264000F8F676 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		A5EFED581BE0265D00F8F676 /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
@@ -81,6 +90,7 @@
 		A51B6D3F1BDE9072007D191A /* BlogoTest */ = {
 			isa = PBXGroup;
 			children = (
+				A5CD2E101BE0D5E100841AE2 /* TableDelegates */,
 				A5EFED531BE0163800F8F676 /* Helpers */,
 				A56465891BDF8CCD00B8F763 /* Cells */,
 				A51B6D431BDE9072007D191A /* AppDelegate.h */,
@@ -127,12 +137,33 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		A5CD2E101BE0D5E100841AE2 /* TableDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				A5CD2E171BE0D75700841AE2 /* Protocols */,
+				A5CD2E151BE0D62C00841AE2 /* TrendingDelegate.h */,
+				A5CD2E111BE0D61500841AE2 /* TrendingDelegate.m */,
+				A5CD2E161BE0D63800841AE2 /* RecentSearchDelegate.h */,
+				A5CD2E131BE0D62100841AE2 /* RecentSearchDelegate.m */,
+			);
+			name = TableDelegates;
+			sourceTree = "<group>";
+		};
+		A5CD2E171BE0D75700841AE2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A5CD2E181BE0D76D00841AE2 /* TableDelegateProtocol.h */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
 		A5EFED531BE0163800F8F676 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				A5EFED591BE0330000F8F676 /* NSMutableArray+Queue.h */,
 				A5EFED5A1BE0330000F8F676 /* NSMutableArray+Queue.m */,
 				A5EFED541BE0164C00F8F676 /* Operation.m */,
+				A5CD2E191BE0D99300841AE2 /* Constants.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -209,6 +240,8 @@
 			files = (
 				A51B6D481BDE9072007D191A /* ViewController.m in Sources */,
 				A51B6D4E1BDE9072007D191A /* BlogoTest.xcdatamodeld in Sources */,
+				A5CD2E121BE0D61500841AE2 /* TrendingDelegate.m in Sources */,
+				A5CD2E141BE0D62100841AE2 /* RecentSearchDelegate.m in Sources */,
 				A5EFED5B1BE0330000F8F676 /* NSMutableArray+Queue.m in Sources */,
 				A51B6D451BDE9072007D191A /* AppDelegate.m in Sources */,
 				A564658C1BDF8D0800B8F763 /* TweetCell.m in Sources */,
@@ -216,6 +249,7 @@
 				A5EFED551BE0164C00F8F676 /* Operation.m in Sources */,
 				A5EFED571BE0264000F8F676 /* HomeCell.m in Sources */,
 				A56465871BDF881800B8F763 /* ResultsViewController.m in Sources */,
+				A5CD2E1A1BE0D99300841AE2 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
