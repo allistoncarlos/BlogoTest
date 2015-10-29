@@ -212,7 +212,7 @@
                         <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="165" id="DaN-aH-bcO" customClass="TweetCell">
-                                <rect key="frame" x="0.0" y="122" width="768" height="165"/>
+                                <rect key="frame" x="0.0" y="92" width="768" height="165"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DaN-aH-bcO" id="UHQ-HS-aC0">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="164"/>
@@ -253,7 +253,7 @@
                             <outlet property="delegate" destination="sPV-vI-SB0" id="PaS-Mz-Y4j"/>
                         </connections>
                     </tableView>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Srj-oH-RPU" userLabel="First Responder" sceneMemberID="firstResponder"/>
