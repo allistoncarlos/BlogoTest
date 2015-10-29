@@ -23,7 +23,7 @@
 		A5CD2E1A1BE0D99300841AE2 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CD2E191BE0D99300841AE2 /* Constants.m */; };
 		A5EFED551BE0164C00F8F676 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED541BE0164C00F8F676 /* Operation.m */; };
 		A5EFED571BE0264000F8F676 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED561BE0264000F8F676 /* HomeCell.m */; };
-		A5EFED5B1BE0330000F8F676 /* NSMutableArray+Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED5A1BE0330000F8F676 /* NSMutableArray+Queue.m */; };
+		A5F530441BE2283D00C83833 /* NSMutableArray+Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F530431BE2283D00C83833 /* NSMutableArray+Queue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,8 +53,8 @@
 		A5EFED541BE0164C00F8F676 /* Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Operation.m; sourceTree = "<group>"; };
 		A5EFED561BE0264000F8F676 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		A5EFED581BE0265D00F8F676 /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
-		A5EFED591BE0330000F8F676 /* NSMutableArray+Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Queue.h"; path = "../../../../../../Downloads/Queue/NSMutableArray+Queue.h"; sourceTree = "<group>"; };
-		A5EFED5A1BE0330000F8F676 /* NSMutableArray+Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Queue.m"; path = "../../../../../../Downloads/Queue/NSMutableArray+Queue.m"; sourceTree = "<group>"; };
+		A5F530421BE2283D00C83833 /* NSMutableArray+Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Queue.h"; sourceTree = "<group>"; };
+		A5F530431BE2283D00C83833 /* NSMutableArray+Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Queue.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,8 +160,8 @@
 		A5EFED531BE0163800F8F676 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				A5EFED591BE0330000F8F676 /* NSMutableArray+Queue.h */,
-				A5EFED5A1BE0330000F8F676 /* NSMutableArray+Queue.m */,
+				A5F530421BE2283D00C83833 /* NSMutableArray+Queue.h */,
+				A5F530431BE2283D00C83833 /* NSMutableArray+Queue.m */,
 				A5EFED541BE0164C00F8F676 /* Operation.m */,
 				A5CD2E191BE0D99300841AE2 /* Constants.m */,
 			);
@@ -242,7 +242,6 @@
 				A51B6D4E1BDE9072007D191A /* BlogoTest.xcdatamodeld in Sources */,
 				A5CD2E121BE0D61500841AE2 /* TrendingDelegate.m in Sources */,
 				A5CD2E141BE0D62100841AE2 /* RecentSearchDelegate.m in Sources */,
-				A5EFED5B1BE0330000F8F676 /* NSMutableArray+Queue.m in Sources */,
 				A51B6D451BDE9072007D191A /* AppDelegate.m in Sources */,
 				A564658C1BDF8D0800B8F763 /* TweetCell.m in Sources */,
 				A51B6D421BDE9072007D191A /* main.m in Sources */,
@@ -250,6 +249,7 @@
 				A5EFED571BE0264000F8F676 /* HomeCell.m in Sources */,
 				A56465871BDF881800B8F763 /* ResultsViewController.m in Sources */,
 				A5CD2E1A1BE0D99300841AE2 /* Constants.m in Sources */,
+				A5F530441BE2283D00C83833 /* NSMutableArray+Queue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
