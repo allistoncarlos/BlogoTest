@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface TweetCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *username;
 @property (weak, nonatomic) IBOutlet UILabel *message;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 
 @end

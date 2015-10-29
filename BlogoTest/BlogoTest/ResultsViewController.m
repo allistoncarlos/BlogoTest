@@ -17,6 +17,7 @@
 
 @synthesize result;
 @synthesize searchParameter;
+@synthesize leftButton;
 
 #pragma mark -
 #pragma mark View methods
@@ -27,6 +28,13 @@
     self.navigationController.navigationBarHidden = NO;
     [self setTitle:searchParameter];
     
+    // Cria o LeftButton com imagem de busca
+    leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Icon_search_small"] style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
+    leftButton.title = @"";
+    leftButton.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem = leftButton;
+    
+    // Seta a cor da NavigationBar
     UIColor* bg = [UIColor colorWithRed:94.0/255.0 green:159.0/255.0 blue:202.0/255.0 alpha:1];
     [self.navigationController.navigationBar setBarTintColor:bg];
     [self.navigationController.navigationBar setTranslucent:YES];
@@ -36,6 +44,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) back:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -
@@ -51,6 +63,11 @@
     return [self.result count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 165;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *TweetCellIdentifier = @"TweetCell";
@@ -58,20 +75,22 @@
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:TweetCellIdentifier];
     NSDictionary *tweet = (self.result)[indexPath.row];
     cell.message.text = tweet[@"text"];
-    cell.message.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    
+    NSDictionary* user = tweet[@"user"];
+    cell.username.text = user[@"name"];
+    
+    // Carrega a imagem de maneira assíncrona
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSString* imageProfileUrl = user[@"profile_image_url"];
+        
+        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: imageProfileUrl]];
+        
+        if (data != nil )
+            dispatch_async(dispatch_get_main_queue(), ^{
+                cell.profileImage.image = [UIImage imageWithData: data];
+             });
+    });
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row & 1)
-    {
-        cell.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    }
-    else
-    {
-        cell.backgroundColor = [UIColor whiteColor];
-    }
 }
 
 @end

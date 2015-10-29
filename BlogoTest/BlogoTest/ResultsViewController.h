@@ -10,6 +10,8 @@
 
 @interface ResultsViewController : UITableViewController
 
+@property (nonatomic, retain) UIBarButtonItem *leftButton;
+
 @property (nonatomic, retain) NSMutableArray *result;
 @property (nonatomic, retain) NSString *searchParameter;
 
