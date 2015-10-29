@@ -25,6 +25,12 @@
 		A5EFED571BE0264000F8F676 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED561BE0264000F8F676 /* HomeCell.m */; };
 		A5F530441BE2283D00C83833 /* NSMutableArray+Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F530431BE2283D00C83833 /* NSMutableArray+Queue.m */; };
 		A5F5304A1BE22B8C00C83833 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5F5304C1BE22B8C00C83833 /* Localizable.strings */; };
+		A5F5305E1BE24CF300C83833 /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F530531BE24CF300C83833 /* NSMutableArray+SWUtilityButtons.m */; };
+		A5F5305F1BE24CF300C83833 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F530551BE24CF300C83833 /* SWCellScrollView.m */; };
+		A5F530601BE24CF300C83833 /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F530571BE24CF300C83833 /* SWLongPressGestureRecognizer.m */; };
+		A5F530611BE24CF300C83833 /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F530591BE24CF300C83833 /* SWTableViewCell.m */; };
+		A5F530621BE24CF300C83833 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F5305B1BE24CF300C83833 /* SWUtilityButtonTapGestureRecognizer.m */; };
+		A5F530631BE24CF300C83833 /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F5305D1BE24CF300C83833 /* SWUtilityButtonView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +66,18 @@
 		A5F530491BE22B6900C83833 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		A5F5304B1BE22B8C00C83833 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A5F5304D1BE22BA500C83833 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A5F530521BE24CF300C83833 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
+		A5F530531BE24CF300C83833 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
+		A5F530541BE24CF300C83833 /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
+		A5F530551BE24CF300C83833 /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCellScrollView.m; sourceTree = "<group>"; };
+		A5F530561BE24CF300C83833 /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		A5F530571BE24CF300C83833 /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		A5F530581BE24CF300C83833 /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
+		A5F530591BE24CF300C83833 /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
+		A5F5305A1BE24CF300C83833 /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
+		A5F5305B1BE24CF300C83833 /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
+		A5F5305C1BE24CF300C83833 /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
+		A5F5305D1BE24CF300C83833 /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +144,7 @@
 		A51B6D5E1BDED3BD007D191A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A5F530511BE24C9D00C83833 /* SWTableViewCell */,
 				A51B6D5C1BDED37B007D191A /* Social.framework */,
 				A51B6D5A1BDED373007D191A /* Accounts.framework */,
 			);
@@ -180,6 +199,25 @@
 				A5F5304C1BE22B8C00C83833 /* Localizable.strings */,
 			);
 			name = Localization;
+			sourceTree = "<group>";
+		};
+		A5F530511BE24C9D00C83833 /* SWTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A5F530521BE24CF300C83833 /* NSMutableArray+SWUtilityButtons.h */,
+				A5F530531BE24CF300C83833 /* NSMutableArray+SWUtilityButtons.m */,
+				A5F530541BE24CF300C83833 /* SWCellScrollView.h */,
+				A5F530551BE24CF300C83833 /* SWCellScrollView.m */,
+				A5F530561BE24CF300C83833 /* SWLongPressGestureRecognizer.h */,
+				A5F530571BE24CF300C83833 /* SWLongPressGestureRecognizer.m */,
+				A5F530581BE24CF300C83833 /* SWTableViewCell.h */,
+				A5F530591BE24CF300C83833 /* SWTableViewCell.m */,
+				A5F5305A1BE24CF300C83833 /* SWUtilityButtonTapGestureRecognizer.h */,
+				A5F5305B1BE24CF300C83833 /* SWUtilityButtonTapGestureRecognizer.m */,
+				A5F5305C1BE24CF300C83833 /* SWUtilityButtonView.h */,
+				A5F5305D1BE24CF300C83833 /* SWUtilityButtonView.m */,
+			);
+			name = SWTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,12 +296,18 @@
 				A5CD2E121BE0D61500841AE2 /* TrendingDelegate.m in Sources */,
 				A5CD2E141BE0D62100841AE2 /* RecentSearchDelegate.m in Sources */,
 				A51B6D451BDE9072007D191A /* AppDelegate.m in Sources */,
+				A5F5305F1BE24CF300C83833 /* SWCellScrollView.m in Sources */,
 				A564658C1BDF8D0800B8F763 /* TweetCell.m in Sources */,
+				A5F5305E1BE24CF300C83833 /* NSMutableArray+SWUtilityButtons.m in Sources */,
+				A5F530601BE24CF300C83833 /* SWLongPressGestureRecognizer.m in Sources */,
+				A5F530611BE24CF300C83833 /* SWTableViewCell.m in Sources */,
 				A51B6D421BDE9072007D191A /* main.m in Sources */,
 				A5EFED551BE0164C00F8F676 /* Operation.m in Sources */,
 				A5EFED571BE0264000F8F676 /* HomeCell.m in Sources */,
+				A5F530631BE24CF300C83833 /* SWUtilityButtonView.m in Sources */,
 				A56465871BDF881800B8F763 /* ResultsViewController.m in Sources */,
 				A5CD2E1A1BE0D99300841AE2 /* Constants.m in Sources */,
+				A5F530621BE24CF300C83833 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				A5F530441BE2283D00C83833 /* NSMutableArray+Queue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

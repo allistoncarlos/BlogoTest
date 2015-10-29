@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SWTableViewCell.h"
 
-@interface ResultsViewController : UITableViewController
+@interface ResultsViewController : UITableViewController<SWTableViewCellDelegate>
 
 @property (nonatomic, retain) UIBarButtonItem *leftButton;
 
