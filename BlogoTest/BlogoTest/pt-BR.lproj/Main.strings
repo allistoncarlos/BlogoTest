@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "N7f-iT-ALe"; */
+"N7f-iT-ALe.text" = "Label";
+
+/* Class = "UILabel"; text = "Recent Searches"; ObjectID = "Rcr-nQ-PO1"; */
+"Rcr-nQ-PO1.text" = "Buscas Recentes";
+
+/* Class = "UITextField"; placeholder = "Search It"; ObjectID = "T00-am-mgF"; */
+"T00-am-mgF.placeholder" = "Buscar";
+
+/* Class = "UILabel"; text = "Trending Now"; ObjectID = "Vvw-i8-dqC"; */
+"Vvw-i8-dqC.text" = "Assuntos do Momento";

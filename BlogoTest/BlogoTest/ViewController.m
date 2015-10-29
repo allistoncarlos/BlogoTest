@@ -277,5 +277,4 @@
     
     [self.activityIndicator stopAnimating];
 }
-
 @end

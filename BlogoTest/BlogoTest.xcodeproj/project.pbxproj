@@ -24,6 +24,7 @@
 		A5EFED551BE0164C00F8F676 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED541BE0164C00F8F676 /* Operation.m */; };
 		A5EFED571BE0264000F8F676 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFED561BE0264000F8F676 /* HomeCell.m */; };
 		A5F530441BE2283D00C83833 /* NSMutableArray+Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F530431BE2283D00C83833 /* NSMutableArray+Queue.m */; };
+		A5F5304A1BE22B8C00C83833 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5F5304C1BE22B8C00C83833 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,10 @@
 		A5EFED581BE0265D00F8F676 /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		A5F530421BE2283D00C83833 /* NSMutableArray+Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Queue.h"; sourceTree = "<group>"; };
 		A5F530431BE2283D00C83833 /* NSMutableArray+Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Queue.m"; sourceTree = "<group>"; };
+		A5F530481BE22B6900C83833 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main.strings"; sourceTree = "<group>"; };
+		A5F530491BE22B6900C83833 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		A5F5304B1BE22B8C00C83833 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A5F5304D1BE22BA500C83833 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +95,7 @@
 		A51B6D3F1BDE9072007D191A /* BlogoTest */ = {
 			isa = PBXGroup;
 			children = (
+				A5F530451BE2292D00C83833 /* Localization */,
 				A5CD2E101BE0D5E100841AE2 /* TableDelegates */,
 				A5EFED531BE0163800F8F676 /* Helpers */,
 				A56465891BDF8CCD00B8F763 /* Cells */,
@@ -168,6 +174,14 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		A5F530451BE2292D00C83833 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				A5F5304C1BE22B8C00C83833 /* Localizable.strings */,
+			);
+			name = Localization;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -226,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A51B6D531BDE9072007D191A /* LaunchScreen.storyboard in Resources */,
+				A5F5304A1BE22B8C00C83833 /* Localizable.strings in Resources */,
 				A51B6D501BDE9072007D191A /* Assets.xcassets in Resources */,
 				A51B6D4B1BDE9072007D191A /* Main.storyboard in Resources */,
 			);
@@ -260,6 +275,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A51B6D4A1BDE9072007D191A /* Base */,
+				A5F530481BE22B6900C83833 /* pt-BR */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -268,8 +284,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				A51B6D521BDE9072007D191A /* Base */,
+				A5F530491BE22B6900C83833 /* pt-BR */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A5F5304C1BE22B8C00C83833 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A5F5304B1BE22B8C00C83833 /* pt-BR */,
+				A5F5304D1BE22BA500C83833 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

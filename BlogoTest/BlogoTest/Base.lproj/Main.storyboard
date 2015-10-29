@@ -53,7 +53,7 @@
                                         <rect key="frame" x="185" y="18" width="74" height="74"/>
                                         <animations/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search it" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T00-am-mgF">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search It" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T00-am-mgF">
                                         <rect key="frame" x="295" y="0.0" width="473" height="110"/>
                                         <animations/>
                                         <constraints>
