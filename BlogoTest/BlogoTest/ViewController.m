@@ -20,6 +20,8 @@
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
+#define isiPhone  (UI_USER_INTERFACE_IDIOM() == 0)?TRUE:FALSE
+
 @interface ViewController ()<UITextFieldDelegate>
 
 #pragma mark -
@@ -88,11 +90,13 @@ CGRect searchFieldOriginalFrame;
     self.recentSearchesTable.delegate = self.recentSearchDelegate;
     self.recentSearchesTable.dataSource = self.recentSearchDelegate;
     
-    self.trendingDelegate = [[TrendingDelegate alloc] init];
-    self.trendingsTable.delegate = self.trendingDelegate;
-    self.trendingsTable.dataSource = self.trendingDelegate;
-    
-    //[self getTrendingTopics];
+    if (!isiPhone) {
+        self.trendingDelegate = [[TrendingDelegate alloc] init];
+        self.trendingsTable.delegate = self.trendingDelegate;
+        self.trendingsTable.dataSource = self.trendingDelegate;
+        
+        //[self getTrendingTopics];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
