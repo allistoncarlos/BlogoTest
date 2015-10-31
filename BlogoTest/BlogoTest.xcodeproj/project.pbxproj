@@ -18,6 +18,7 @@
 		A51B6D5D1BDED37B007D191A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51B6D5C1BDED37B007D191A /* Social.framework */; };
 		A56465871BDF881800B8F763 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56465861BDF881800B8F763 /* ResultsViewController.m */; };
 		A564658C1BDF8D0800B8F763 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A564658B1BDF8D0800B8F763 /* TweetCell.m */; };
+		A5B9AEE21BE4FAB800683A3A /* Main-iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5B9AEE01BE4FAB800683A3A /* Main-iPhone.storyboard */; };
 		A5CD2E121BE0D61500841AE2 /* TrendingDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CD2E111BE0D61500841AE2 /* TrendingDelegate.m */; };
 		A5CD2E141BE0D62100841AE2 /* RecentSearchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CD2E131BE0D62100841AE2 /* RecentSearchDelegate.m */; };
 		A5CD2E1A1BE0D99300841AE2 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CD2E191BE0D99300841AE2 /* Constants.m */; };
@@ -51,6 +52,8 @@
 		A56465881BDF882B00B8F763 /* ResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
 		A564658A1BDF8CE100B8F763 /* TweetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
 		A564658B1BDF8D0800B8F763 /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
+		A5B9AEE11BE4FAB800683A3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Main-iPhone.storyboard"; sourceTree = "<group>"; };
+		A5B9AEE61BE4FAD800683A3A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main-iPhone.strings"; sourceTree = "<group>"; };
 		A5CD2E111BE0D61500841AE2 /* TrendingDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendingDelegate.m; sourceTree = "<group>"; };
 		A5CD2E131BE0D62100841AE2 /* RecentSearchDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentSearchDelegate.m; sourceTree = "<group>"; };
 		A5CD2E151BE0D62C00841AE2 /* TrendingDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrendingDelegate.h; sourceTree = "<group>"; };
@@ -121,6 +124,7 @@
 				A51B6D441BDE9072007D191A /* AppDelegate.m */,
 				A51B6D461BDE9072007D191A /* ViewController.h */,
 				A51B6D471BDE9072007D191A /* ViewController.m */,
+				A5B9AEE01BE4FAB800683A3A /* Main-iPhone.storyboard */,
 				A51B6D491BDE9072007D191A /* Main.storyboard */,
 				A51B6D4F1BDE9072007D191A /* Assets.xcassets */,
 				A51B6D511BDE9072007D191A /* LaunchScreen.storyboard */,
@@ -261,6 +265,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = A51B6D341BDE9072007D191A;
 			productRefGroup = A51B6D3E1BDE9072007D191A /* Products */;
@@ -277,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5B9AEE21BE4FAB800683A3A /* Main-iPhone.storyboard in Resources */,
 				A51B6D531BDE9072007D191A /* LaunchScreen.storyboard in Resources */,
 				A5F5304A1BE22B8C00C83833 /* Localizable.strings in Resources */,
 				A51B6D501BDE9072007D191A /* Assets.xcassets in Resources */,
@@ -331,6 +337,15 @@
 				A5F530491BE22B6900C83833 /* pt-BR */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A5B9AEE01BE4FAB800683A3A /* Main-iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A5B9AEE11BE4FAB800683A3A /* Base */,
+				A5B9AEE61BE4FAD800683A3A /* pt-BR */,
+			);
+			name = "Main-iPhone.storyboard";
 			sourceTree = "<group>";
 		};
 		A5F5304C1BE22B8C00C83833 /* Localizable.strings */ = {
