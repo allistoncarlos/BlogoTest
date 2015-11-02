@@ -52,8 +52,8 @@
 		A56465881BDF882B00B8F763 /* ResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
 		A564658A1BDF8CE100B8F763 /* TweetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
 		A564658B1BDF8D0800B8F763 /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
+		A58CA80A1BE77C6F008194B0 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main-iPhone.strings"; sourceTree = "<group>"; };
 		A5B9AEE11BE4FAB800683A3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Main-iPhone.storyboard"; sourceTree = "<group>"; };
-		A5B9AEE61BE4FAD800683A3A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main-iPhone.strings"; sourceTree = "<group>"; };
 		A5CD2E111BE0D61500841AE2 /* TrendingDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendingDelegate.m; sourceTree = "<group>"; };
 		A5CD2E131BE0D62100841AE2 /* RecentSearchDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentSearchDelegate.m; sourceTree = "<group>"; };
 		A5CD2E151BE0D62C00841AE2 /* TrendingDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrendingDelegate.h; sourceTree = "<group>"; };
@@ -343,7 +343,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A5B9AEE11BE4FAB800683A3A /* Base */,
-				A5B9AEE61BE4FAD800683A3A /* pt-BR */,
+				A58CA80A1BE77C6F008194B0 /* pt-BR */,
 			);
 			name = "Main-iPhone.storyboard";
 			sourceTree = "<group>";

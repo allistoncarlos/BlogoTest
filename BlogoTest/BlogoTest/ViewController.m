@@ -91,11 +91,20 @@ CGRect searchFieldOriginalFrame;
     self.recentSearchesTable.dataSource = self.recentSearchDelegate;
     
     if (!isiPhone) {
+        // Carrega os Trending Topics somente no iPad
         self.trendingDelegate = [[TrendingDelegate alloc] init];
         self.trendingsTable.delegate = self.trendingDelegate;
         self.trendingsTable.dataSource = self.trendingDelegate;
         
-        //[self getTrendingTopics];
+        [self getTrendingTopics];
+    }
+    else {
+        // Operação de resign do teclado somente no iPhone
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                       initWithTarget:self
+                                       action:@selector(dismissKeyboard)];
+        
+        [self.view addGestureRecognizer:tap];
     }
 }
 
@@ -108,6 +117,23 @@ CGRect searchFieldOriginalFrame;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    BOOL isPortrait = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
+    
+    // Landscape iPhone
+    if (isiPhone) {
+        if (!isPortrait) {
+            self.recentSearchesLabel.hidden = YES;
+            self.recentSearchesBar.hidden = YES;
+            self.recentSearchesTable.hidden = YES;
+        } else {
+            self.recentSearchesLabel.hidden = NO;
+            self.recentSearchesBar.hidden = NO;
+            self.recentSearchesTable.hidden = NO;
+        }
+    }
 }
 
 #pragma mark -
@@ -152,6 +178,8 @@ static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 252;
+static const CGFloat PORTRAIT_KEYBOARD_HEIGHT_IPHONE = 186;
+static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT_IPHONE = 152;
 
 CGFloat animatedDistance;
 
@@ -177,9 +205,9 @@ CGFloat animatedDistance;
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
     if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown)
-        animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
+        animatedDistance = !isiPhone ? floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction) : floor(PORTRAIT_KEYBOARD_HEIGHT_IPHONE * heightFraction);
     else
-        animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
+        animatedDistance = !isiPhone ? floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction) : floor(LANDSCAPE_KEYBOARD_HEIGHT_IPHONE * heightFraction);
 
     CGRect viewFrame = self.view.frame;
     viewFrame.origin.y -= animatedDistance;
@@ -366,38 +394,51 @@ CGFloat animatedDistance;
 }
 
 - (void) keyboardVisibilityChanged: (BOOL)isVisible {
-    self.trendingsTable.hidden = isVisible;
-    self.trendingsLabel.hidden = isVisible;
-    self.trendingsBar.hidden = isVisible;
+    BOOL isPortrait = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
     
-    self.recentSearchesTable.hidden = isVisible;
-    self.recentSearchesLabel.hidden = isVisible;
-    self.recentSearchesBar.hidden = isVisible;
-    
-    CGRect searchGroupOriginalFrame = CGRectMake(0, 491, self.searchGroup.frame.size.width, self.searchGroup.frame.size.height);
-    CGRect searchGroupModifiedFrame = CGRectMake(0, 512, self.searchGroup.frame.size.width, self.searchGroup.frame.size.height);
-    
-    self.searchGroup.frame = isVisible ? searchGroupModifiedFrame : searchGroupOriginalFrame;
-    
-    CGRect searchIconOriginalFrame = CGRectMake(185, self.searchIcon.frame.origin.y, self.searchIcon.frame.size.width, self.searchIcon.frame.size.height);
-    CGRect searchIconModifiedFrame = CGRectMake(55, self.searchIcon.frame.origin.y, self.searchIcon.frame.size.width, self.searchIcon.frame.size.height);
-    
-    self.searchIcon.frame = isVisible ? searchIconModifiedFrame : searchIconOriginalFrame;
-    
-    CGRect searchFieldModifiedFrame = CGRectMake(165, 18, self.searchField.frame.size.width, 74);
-    self.searchField.frame = isVisible ? searchFieldModifiedFrame : searchFieldOriginalFrame;
-    
-    CGFloat twitterLogoYOffset;
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown)
-        twitterLogoYOffset = 165 + PORTRAIT_KEYBOARD_HEIGHT;
-    else
-        twitterLogoYOffset = 165 + LANDSCAPE_KEYBOARD_HEIGHT;
-    
-    CGRect twitterLogoOriginalFrame = CGRectMake(302, 165, 165, 135);
-    CGRect twitterLogoModifiedFrame = CGRectMake(0, twitterLogoYOffset, self.twitterLogo.frame.size.width, self.twitterLogo.frame.size.height);
-    
-    [self.twitterLogo setFrame:isVisible ? twitterLogoModifiedFrame : twitterLogoOriginalFrame];
+    if (!isiPhone) {
+        self.trendingsTable.hidden = isVisible;
+        self.trendingsLabel.hidden = isVisible;
+        self.trendingsBar.hidden = isVisible;
+        
+        self.recentSearchesTable.hidden = isVisible;
+        self.recentSearchesLabel.hidden = isVisible;
+        self.recentSearchesBar.hidden = isVisible;
+        
+        CGRect searchGroupOriginalFrame = CGRectMake(0, 491, self.searchGroup.frame.size.width, self.searchGroup.frame.size.height);
+        CGRect searchGroupModifiedFrame = CGRectMake(0, 512, self.searchGroup.frame.size.width, self.searchGroup.frame.size.height);
+        
+        self.searchGroup.frame = isVisible ? searchGroupModifiedFrame : searchGroupOriginalFrame;
+        
+        CGRect searchIconOriginalFrame = CGRectMake(185, self.searchIcon.frame.origin.y, self.searchIcon.frame.size.width, self.searchIcon.frame.size.height);
+        CGRect searchIconModifiedFrame = CGRectMake(55, self.searchIcon.frame.origin.y, self.searchIcon.frame.size.width, self.searchIcon.frame.size.height);
+        
+        self.searchIcon.frame = isVisible ? searchIconModifiedFrame : searchIconOriginalFrame;
+        
+        CGRect searchFieldModifiedFrame = CGRectMake(165, 18, self.searchField.frame.size.width, 74);
+        self.searchField.frame = isVisible ? searchFieldModifiedFrame : searchFieldOriginalFrame;
+        
+        CGFloat twitterLogoYOffset;
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        
+        if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown)
+            twitterLogoYOffset = 165 + PORTRAIT_KEYBOARD_HEIGHT;
+        else
+            twitterLogoYOffset = 165 + LANDSCAPE_KEYBOARD_HEIGHT;
+        
+        CGRect twitterLogoOriginalFrame = CGRectMake(302, 165, 165, 135);
+        CGRect twitterLogoModifiedFrame = CGRectMake(0, twitterLogoYOffset, self.twitterLogo.frame.size.width, self.twitterLogo.frame.size.height);
+        
+        [self.twitterLogo setFrame:isVisible ? twitterLogoModifiedFrame : twitterLogoOriginalFrame];
+    } else {
+        if (isPortrait)
+            self.recentSearchesLabel.hidden = isVisible;
+        else
+            self.recentSearchesLabel.hidden = NO;
+    }
+}
+
+-(void)dismissKeyboard {
+    [self.searchField resignFirstResponder];
 }
 @end

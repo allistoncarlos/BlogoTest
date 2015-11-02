@@ -54,15 +54,15 @@
                                     <constraint firstAttribute="height" constant="63" id="W4z-0Z-A3f"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6WZ-dh-EyT">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6WZ-dh-EyT">
                                 <rect key="frame" x="20" y="147" width="280" height="4"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.36862745099999999" green="0.62352941179999999" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="4" id="YcV-CV-8Zk"/>
+                                    <constraint firstAttribute="height" constant="4" id="8ku-Ed-gi3"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recent Searches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEn-G2-6LX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Recent Searches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEn-G2-6LX">
                                 <rect key="frame" x="20" y="159" width="280" height="29"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
@@ -120,14 +120,14 @@
                         <constraints>
                             <constraint firstItem="h9S-NC-UDl" firstAttribute="top" secondItem="yqZ-Lz-AVZ" secondAttribute="bottom" constant="85" id="91v-50-P2f"/>
                             <constraint firstItem="PMw-1s-BVv" firstAttribute="trailing" secondItem="ABg-Zp-Tid" secondAttribute="trailingMargin" id="CZm-sj-bgY"/>
-                            <constraint firstItem="6WZ-dh-EyT" firstAttribute="leading" secondItem="ABg-Zp-Tid" secondAttribute="leadingMargin" id="FXA-Mm-Aii"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yqZ-Lz-AVZ" secondAttribute="trailing" constant="-20" id="Kdx-wQ-AeG"/>
                             <constraint firstItem="PMw-1s-BVv" firstAttribute="leading" secondItem="ABg-Zp-Tid" secondAttribute="leadingMargin" id="Og1-mp-f1h"/>
-                            <constraint firstItem="6WZ-dh-EyT" firstAttribute="trailing" secondItem="ABg-Zp-Tid" secondAttribute="trailingMargin" id="SjL-LK-jRy"/>
                             <constraint firstItem="tRg-GA-qdc" firstAttribute="centerX" secondItem="ABg-Zp-Tid" secondAttribute="centerX" id="WSH-lK-brh"/>
-                            <constraint firstItem="6WZ-dh-EyT" firstAttribute="top" secondItem="tRg-GA-qdc" secondAttribute="bottom" constant="8" id="WVk-Up-ZQf"/>
                             <constraint firstItem="yqZ-Lz-AVZ" firstAttribute="leading" secondItem="ABg-Zp-Tid" secondAttribute="leadingMargin" constant="-20" id="c28-bB-wWz"/>
+                            <constraint firstItem="6WZ-dh-EyT" firstAttribute="leading" secondItem="ABg-Zp-Tid" secondAttribute="leadingMargin" id="cos-11-WPk"/>
+                            <constraint firstItem="6WZ-dh-EyT" firstAttribute="trailing" secondItem="ABg-Zp-Tid" secondAttribute="trailingMargin" id="itk-uG-D19"/>
                             <constraint firstItem="f2S-kX-WLV" firstAttribute="centerY" secondItem="tRg-GA-qdc" secondAttribute="centerY" id="jKT-fB-q8X"/>
+                            <constraint firstItem="KEn-G2-6LX" firstAttribute="top" secondItem="6WZ-dh-EyT" secondAttribute="bottom" constant="8" id="nSU-m6-E8L"/>
                             <constraint firstItem="f2S-kX-WLV" firstAttribute="centerX" secondItem="tRg-GA-qdc" secondAttribute="centerX" id="pEb-bQ-kXW"/>
                             <constraint firstItem="PMw-1s-BVv" firstAttribute="top" secondItem="ABg-Zp-Tid" secondAttribute="topMargin" constant="196" id="pHa-iK-puc"/>
                             <constraint firstItem="tRg-GA-qdc" firstAttribute="top" secondItem="VEg-to-cV8" secondAttribute="bottom" constant="8" symbolic="YES" id="vOl-3I-BRy"/>
