@@ -94,7 +94,7 @@ CGRect searchFieldOriginalFrame;
         self.trendingsTable.delegate = self.trendingDelegate;
         self.trendingsTable.dataSource = self.trendingDelegate;
         
-        //[self getTrendingTopics];
+        [self getTrendingTopics];
     }
     else {
         // Operação de resign do teclado somente no iPhone
