@@ -8,6 +8,7 @@
 
 #import "ResultsViewController.h"
 #import "TweetCell.h"
+#import "Constants.m"
 
 @interface ResultsViewController ()
 
@@ -70,28 +71,46 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    BOOL isPortrait = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
+    
     static NSString *cellIdentifier = @"TweetCell";
     
     TweetCell *cell = (TweetCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    // Add utility buttons
-    NSMutableArray *leftUtilityButtons = [NSMutableArray new];
-    
     UIImage* backgroundCellImage = [UIImage imageNamed:@"cell_pattern"];
     UIColor* backgroundCellColor = [UIColor colorWithPatternImage:backgroundCellImage];
 
-    [leftUtilityButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
-    [leftUtilityButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
-    [leftUtilityButtons sw_addUtilityButtonWithColor: backgroundCellColor icon:[UIImage imageNamed:@"botao_generico_on"]];
-    [leftUtilityButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
-    [leftUtilityButtons sw_addUtilityButtonWithColor: backgroundCellColor icon:[UIImage imageNamed:@"botao_generico_off"]];
-    [leftUtilityButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
-    [leftUtilityButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
+    NSMutableArray* fullButtons = [NSMutableArray new];
+    [fullButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
+    [fullButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
+    [fullButtons sw_addUtilityButtonWithColor: backgroundCellColor icon:[UIImage imageNamed:@"botao_generico_on"]];
+    [fullButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
+    [fullButtons sw_addUtilityButtonWithColor: backgroundCellColor icon:[UIImage imageNamed:@"botao_generico_off"]];
+    [fullButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
+    [fullButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
     
-    cell.leftUtilityButtons = leftUtilityButtons;
+    if (!IS_IPHONE) {
+        cell.leftUtilityButtons = fullButtons;
+    }
+    
+    if (IS_IPHONE) {
+        if (isPortrait) {
+            NSMutableArray* partialButtons = [NSMutableArray new];
+            
+            [partialButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
+            [partialButtons sw_addUtilityButtonWithColor: backgroundCellColor icon:[UIImage imageNamed:@"botao_generico_on"]];
+            [partialButtons sw_addUtilityButtonWithColor: backgroundCellColor title:@""];
+            [partialButtons sw_addUtilityButtonWithColor: backgroundCellColor icon:[UIImage imageNamed:@"botao_generico_off"]];
+            
+            cell.leftUtilityButtons = partialButtons;
+        }
+        else {
+            cell.leftUtilityButtons = fullButtons;
+        }
+    }
+    
     cell.delegate = self;
     
-    // Configure the cell...
     NSDictionary *tweet = (self.result)[indexPath.row];
     cell.message.text = tweet[@"text"];
     

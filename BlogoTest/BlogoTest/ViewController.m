@@ -20,8 +20,6 @@
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
-#define isiPhone  (UI_USER_INTERFACE_IDIOM() == 0)?TRUE:FALSE
-
 @interface ViewController ()<UITextFieldDelegate>
 
 #pragma mark -
@@ -90,13 +88,13 @@ CGRect searchFieldOriginalFrame;
     self.recentSearchesTable.delegate = self.recentSearchDelegate;
     self.recentSearchesTable.dataSource = self.recentSearchDelegate;
     
-    if (!isiPhone) {
+    if (!IS_IPHONE) {
         // Carrega os Trending Topics somente no iPad
         self.trendingDelegate = [[TrendingDelegate alloc] init];
         self.trendingsTable.delegate = self.trendingDelegate;
         self.trendingsTable.dataSource = self.trendingDelegate;
         
-        [self getTrendingTopics];
+        //[self getTrendingTopics];
     }
     else {
         // Operação de resign do teclado somente no iPhone
@@ -106,6 +104,8 @@ CGRect searchFieldOriginalFrame;
         
         [self.view addGestureRecognizer:tap];
     }
+    
+    [self adjustLayout];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -120,20 +120,7 @@ CGRect searchFieldOriginalFrame;
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    BOOL isPortrait = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
-    
-    // Landscape iPhone
-    if (isiPhone) {
-        if (!isPortrait) {
-            self.recentSearchesLabel.hidden = YES;
-            self.recentSearchesBar.hidden = YES;
-            self.recentSearchesTable.hidden = YES;
-        } else {
-            self.recentSearchesLabel.hidden = NO;
-            self.recentSearchesBar.hidden = NO;
-            self.recentSearchesTable.hidden = NO;
-        }
-    }
+    [self adjustLayout];
 }
 
 #pragma mark -
@@ -204,10 +191,18 @@ CGFloat animatedDistance;
     
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
-    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown)
-        animatedDistance = !isiPhone ? floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction) : floor(PORTRAIT_KEYBOARD_HEIGHT_IPHONE * heightFraction);
-    else
-        animatedDistance = !isiPhone ? floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction) : floor(LANDSCAPE_KEYBOARD_HEIGHT_IPHONE * heightFraction);
+    if (!IS_IPHONE) {
+        if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown)
+            animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
+        else
+            animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
+    }
+    else {
+        if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown)
+            animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT_IPHONE * heightFraction);
+        else
+            animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT_IPHONE * heightFraction);
+    }
 
     CGRect viewFrame = self.view.frame;
     viewFrame.origin.y -= animatedDistance;
@@ -393,17 +388,69 @@ CGFloat animatedDistance;
     [self.activityIndicator stopAnimating];
 }
 
+- (void) adjustLayout {
+    BOOL isPortrait = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
+    
+    if (IS_IPHONE) {
+        if (!isPortrait) {
+            // Landscape iPhone
+            self.recentSearchesLabel.hidden = YES;
+            self.recentSearchesBar.hidden = YES;
+            self.recentSearchesTable.hidden = YES;
+        } else {
+            // Portrait iPhone
+            self.recentSearchesLabel.hidden = NO;
+            self.recentSearchesBar.hidden = NO;
+            self.recentSearchesTable.hidden = NO;
+        }
+    }
+    else {
+        if (!isPortrait) {
+            // Landscape iPad
+            self.recentSearchesLabel.hidden = YES;
+            self.recentSearchesBar.hidden = YES;
+            self.recentSearchesTable.hidden = YES;
+            
+            self.trendingsLabel.hidden = YES;
+            self.trendingsBar.hidden = YES;
+            self.trendingsTable.hidden = YES;
+        }
+        else {
+            // Portrait iPad
+            self.recentSearchesLabel.hidden = NO;
+            self.recentSearchesBar.hidden = NO;
+            self.recentSearchesTable.hidden = NO;
+            
+            self.trendingsLabel.hidden = NO;
+            self.trendingsBar.hidden = NO;
+            self.trendingsTable.hidden = NO;
+        }
+    }
+}
+
 - (void) keyboardVisibilityChanged: (BOOL)isVisible {
     BOOL isPortrait = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
     
-    if (!isiPhone) {
-        self.trendingsTable.hidden = isVisible;
-        self.trendingsLabel.hidden = isVisible;
-        self.trendingsBar.hidden = isVisible;
-        
-        self.recentSearchesTable.hidden = isVisible;
-        self.recentSearchesLabel.hidden = isVisible;
-        self.recentSearchesBar.hidden = isVisible;
+    if (!IS_IPHONE) {
+        // iPad
+        if (isPortrait) {
+            self.trendingsTable.hidden = isVisible;
+            self.trendingsLabel.hidden = isVisible;
+            self.trendingsBar.hidden = isVisible;
+            
+            self.recentSearchesTable.hidden = isVisible;
+            self.recentSearchesLabel.hidden = isVisible;
+            self.recentSearchesBar.hidden = isVisible;
+        }
+        else {
+            self.trendingsTable.hidden = YES;
+            self.trendingsLabel.hidden = YES;
+            self.trendingsBar.hidden = YES;
+            
+            self.recentSearchesTable.hidden = YES;
+            self.recentSearchesLabel.hidden = YES;
+            self.recentSearchesBar.hidden = YES;
+        }
         
         CGRect searchGroupOriginalFrame = CGRectMake(0, 491, self.searchGroup.frame.size.width, self.searchGroup.frame.size.height);
         CGRect searchGroupModifiedFrame = CGRectMake(0, 512, self.searchGroup.frame.size.width, self.searchGroup.frame.size.height);
@@ -431,10 +478,11 @@ CGFloat animatedDistance;
         
         [self.twitterLogo setFrame:isVisible ? twitterLogoModifiedFrame : twitterLogoOriginalFrame];
     } else {
+        // iPhone
         if (isPortrait)
             self.recentSearchesLabel.hidden = isVisible;
         else
-            self.recentSearchesLabel.hidden = NO;
+            self.recentSearchesLabel.hidden = YES;
     }
 }
 
